@@ -7,11 +7,14 @@
 //
 
 #import "ViewController.h"
+#import "Receipt+CoreDataClass.h"
+#import "Tag+CoreDataClass.h"
 
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic) NSMutableArray <Receipt *> *receipts;
 
 @end
 
@@ -19,8 +22,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+     self.delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    self.receipts = [[NSMutableArray alloc]init];
     // Do any additional setup after loading the view, typically from a nib.
 }
+
+//-(void)viewWillAppear:(BOOL)animated {
+//    
+//    NSManagedObjectContext *managedContext = self.delegate.persistentContainer.viewContext;
+//    NSError *error;
+//    NSMutableArray *update = (NSMutableArray <ToDo *>*)[managedContext executeFetchRequest:[ToDo fetchRequest] error:&error];
+//    self.objects = [update mutableCopy];
+//    
+//}
 
 
 - (void)didReceiveMemoryWarning {
