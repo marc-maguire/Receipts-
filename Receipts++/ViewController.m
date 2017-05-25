@@ -16,6 +16,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) NSMutableArray <Receipt *> *receipts;
+@property (nonatomic) NSArray *sections;
 
 @end
 
@@ -25,6 +26,8 @@
     [super viewDidLoad];
      self.delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     self.receipts = [[NSMutableArray alloc]init];
+    self.sections = @[@"Personal", @"Family", @"Business"];
+    
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -51,8 +54,14 @@
 #pragma mark - TableView Data Source Methods
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
     
+    return [self.sections count];
+    
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    
+    return self.sections[section];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
