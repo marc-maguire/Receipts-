@@ -27,14 +27,18 @@
     // Do any additional setup after loading the view, typically from a nib.
 }
 
-//-(void)viewWillAppear:(BOOL)animated {
-//    
-//    NSManagedObjectContext *managedContext = self.delegate.persistentContainer.viewContext;
-//    NSError *error;
-//    NSMutableArray *update = (NSMutableArray <ToDo *>*)[managedContext executeFetchRequest:[ToDo fetchRequest] error:&error];
-//    self.objects = [update mutableCopy];
-//    
-//}
+-(void)viewWillAppear:(BOOL)animated {
+    
+    NSManagedObjectContext *managedContext = self.delegate.persistentContainer.viewContext;
+    NSError *error;
+    NSMutableArray *update = (NSMutableArray <Receipt *>*)[managedContext executeFetchRequest:[Receipt fetchRequest] error:&error];
+    if (error) {
+        abort();
+    } else {
+    self.receipts = [update mutableCopy];
+        NSLog(@"We in business, baby");
+    }
+}
 
 
 - (void)didReceiveMemoryWarning {
