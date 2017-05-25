@@ -61,4 +61,26 @@
     return cell;
 }
 
+#pragma mark - Table View Delegate Methods
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+   
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+   
+    if (cell.accessoryType == UITableViewCellAccessoryNone) {
+        [self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
+    } else {
+        [self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
+
+    }
+        
+        
+    
+}
+
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    
+   
+}
+
+
 @end
