@@ -51,6 +51,24 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (NSArray <Receipt *> * )loadReceiptsForSections:(int)indexPath {
+    
+    NSManagedObjectContext *context = self.delegate.persistentContainer.viewContext;
+    NSFetchRequest *request = [Receipt fetchRequest];
+    NSString *sectionTitle = [self.sections objectAtIndex:indexPath];
+    //sort and return receipts based on section
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"tagName = %@",sectionTitle];
+    request.predicate = predicate;
+    
+    NSError *error;
+    NSArray *results = [context executeFetchRequest:request error:&error];
+    if (error) {
+        NSLog(@"error performing search with predicate");
+        abort();
+    }
+    return results;
+}
+
 #pragma mark - TableView Data Source Methods
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
