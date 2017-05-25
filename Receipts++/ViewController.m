@@ -39,6 +39,7 @@
     self.receipts = [update mutableCopy];
         NSLog(@"We in business, baby");
     }
+    [self.tableView reloadData];
 }
 
 
@@ -56,13 +57,13 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
   
-    return 1;
+    return [self.receipts count];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    
-    cell.textLabel.text = @"test";
+    Receipt *receipt = self.receipts[indexPath.row];
+    cell.textLabel.text = receipt.receiptDescription;
     
     return cell;
     
