@@ -7,6 +7,8 @@
 //
 
 #import "AddReceiptViewController.h"
+#import "Receipt+CoreDataClass.h"
+#import "Tag+CoreDataClass.h"
 
 @interface AddReceiptViewController () <UITableViewDataSource, UITableViewDataSource>
 
@@ -15,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) NSArray <NSString *> *categories;
+@property (nonatomic) NSMutableArray *selectedCategories;
 
 
 
@@ -25,6 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.categories = @[@"Personal", @"Family", @"Business"];
+    self.selectedCategories = [[NSMutableArray alloc] init];
     
     // Do any additional setup after loading the view.
 }
@@ -43,6 +47,38 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+-(IBAction)saveReceipt:(UIButton *)sender {
+    
+    NSManagedObjectContext *context = self.delegate.persistentContainer.viewContext;
+    Receipt *receipt = [[Receipt alloc]initWithEntity:[Receipt entity] insertIntoManagedObjectContext:context];
+    receipt.amount = (uint16_t)[self.amountTextField.text integerValue];
+    receipt.date = self.datePicker.date;
+    receipt.receiptDescription = self.descriptionTextField.text;
+    NSSet <Tag *> *categories;
+    for (NSString *string in self.categories) {
+        Tag *tag = [[Tag alloc]initWithEntity:[Tag entity] insertIntoManagedObjectContext:context];
+        tag.tagName = string;
+        [categories setByAddingObject:tag];
+    }
+    receipt.tag = categories;
+    
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+//    dateFormatter.dateFormat = @"MMMM DDDD, YYY";
+//    NSDate *date1 = [dateFormatter stringFromDate:self.datePicker.date];
+    //receipt.date = date;
+    
+    NSError *error;
+    [context save:&error];
+    if (error) {
+        NSLog(@"save failed in AddReciptViewController");
+        abort();
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+
 #pragma mark - Table View Data Source Methods
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -69,13 +105,13 @@
    
     if (cell.accessoryType == UITableViewCellAccessoryNone) {
         [self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
+        [self.selectedCategories addObject:self.categories[indexPath.row]];
     } else {
         [self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
+        NSString *object = self.categories[indexPath.row];
+        [self.selectedCategories removeObject:object];
 
     }
-        
-        
-    
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {

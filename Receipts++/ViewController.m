@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "Receipt+CoreDataClass.h"
 #import "Tag+CoreDataClass.h"
+#import "AddReceiptViewController.h"
 
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -64,6 +65,18 @@
     cell.textLabel.text = @"test";
     
     return cell;
+    
+}
+
+#pragma mark - Navigation
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([segue.identifier isEqualToString:@"add"]) {
+        AddReceiptViewController *arvc = [segue destinationViewController];
+        arvc.delegate = self.delegate;
+    }
+    
     
 }
 

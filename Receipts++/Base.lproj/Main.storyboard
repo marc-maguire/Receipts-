@@ -44,7 +44,7 @@
                                 <items>
                                     <barButtonItem title="Add Receipt" style="plain" id="PhX-ED-eAJ">
                                         <connections>
-                                            <segue destination="4fk-fJ-ON6" kind="show" identifier="add" id="i0S-XX-yng"/>
+                                            <segue destination="4fk-fJ-ON6" kind="presentation" identifier="add" id="i0S-XX-yng"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -115,13 +115,24 @@
                                     <outlet property="delegate" destination="4fk-fJ-ON6" id="9ed-W9-v8h"/>
                                 </connections>
                             </tableView>
-                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="xWE-W0-i8d">
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="xWE-W0-i8d">
                                 <rect key="frame" x="16" y="283" width="343" height="216"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <date key="date" timeIntervalSinceReferenceDate="517422507.25428998">
                                     <!--2017-05-25 16:28:27 +0000-->
                                 </date>
+                                <date key="minimumDate" timeIntervalSinceReferenceDate="515325600">
+                                    <!--2017-05-01 10:00:00 +0000-->
+                                </date>
                             </datePicker>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uCU-bp-AYf">
+                                <rect key="frame" x="163" y="40" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="saveReceipt:" destination="4fk-fJ-ON6" eventType="touchUpInside" id="eWS-XI-SO1"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>

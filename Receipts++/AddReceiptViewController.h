@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppDelegate.h"
 
 @interface AddReceiptViewController : UIViewController
+
+@property (nonatomic) AppDelegate *delegate;
 
 @end
