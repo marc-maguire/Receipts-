@@ -56,14 +56,8 @@
 		920100311ED72EC100FCB342 = {
 			isa = PBXGroup;
 			children = (
-				920100571ED731B200FCB342 /* Receipt+CoreDataClass.h */,
-				920100581ED731B200FCB342 /* Receipt+CoreDataClass.m */,
-				920100591ED731B200FCB342 /* Receipt+CoreDataProperties.h */,
-				9201005A1ED731B200FCB342 /* Receipt+CoreDataProperties.m */,
-				9201005B1ED731B200FCB342 /* Tag+CoreDataClass.h */,
-				9201005C1ED731B200FCB342 /* Tag+CoreDataClass.m */,
-				9201005D1ED731B200FCB342 /* Tag+CoreDataProperties.h */,
-				9201005E1ED731B200FCB342 /* Tag+CoreDataProperties.m */,
+				920100641ED731E600FCB342 /* Controllers */,
+				920100631ED731DA00FCB342 /* Models */,
 				9201003C1ED72EC100FCB342 /* Receipts++ */,
 				9201003B1ED72EC100FCB342 /* Products */,
 			);
@@ -82,8 +76,6 @@
 			children = (
 				920100401ED72EC100FCB342 /* AppDelegate.h */,
 				920100411ED72EC100FCB342 /* AppDelegate.m */,
-				920100431ED72EC100FCB342 /* ViewController.h */,
-				920100441ED72EC100FCB342 /* ViewController.m */,
 				920100461ED72EC100FCB342 /* Main.storyboard */,
 				9201004C1ED72EC100FCB342 /* Assets.xcassets */,
 				9201004E1ED72EC100FCB342 /* LaunchScreen.storyboard */,
@@ -100,6 +92,31 @@
 				9201003E1ED72EC100FCB342 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		920100631ED731DA00FCB342 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				920100571ED731B200FCB342 /* Receipt+CoreDataClass.h */,
+				920100581ED731B200FCB342 /* Receipt+CoreDataClass.m */,
+				920100591ED731B200FCB342 /* Receipt+CoreDataProperties.h */,
+				9201005A1ED731B200FCB342 /* Receipt+CoreDataProperties.m */,
+				9201005B1ED731B200FCB342 /* Tag+CoreDataClass.h */,
+				9201005C1ED731B200FCB342 /* Tag+CoreDataClass.m */,
+				9201005D1ED731B200FCB342 /* Tag+CoreDataProperties.h */,
+				9201005E1ED731B200FCB342 /* Tag+CoreDataProperties.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		920100641ED731E600FCB342 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				920100431ED72EC100FCB342 /* ViewController.h */,
+				920100441ED72EC100FCB342 /* ViewController.m */,
+			);
+			name = Controllers;
+			path = "Receipts++";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
