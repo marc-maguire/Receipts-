@@ -8,7 +8,14 @@
 
 #import "AddReceiptViewController.h"
 
-@interface AddReceiptViewController ()
+@interface AddReceiptViewController () <UITableViewDataSource, UITableViewDataSource>
+
+@property (weak, nonatomic) IBOutlet UITextField *amountTextField;
+@property (weak, nonatomic) IBOutlet UITextField *descriptionTextField;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic) NSArray <NSString *> *categories;
+
+
 
 @end
 
@@ -16,6 +23,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.categories = @[@"Personal", @"Family", @"Business"];
+    
     // Do any additional setup after loading the view.
 }
 
@@ -33,5 +42,23 @@
     // Pass the selected object to the new view controller.
 }
 */
+#pragma mark - Table View Data Source Methods
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 3;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    
+    cell.textLabel.text = self.categories[indexPath.row];
+    
+    return cell;
+}
 
 @end
