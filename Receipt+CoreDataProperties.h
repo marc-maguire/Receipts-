@@ -18,16 +18,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int16_t amount;
 @property (nullable, nonatomic, copy) NSString *receiptDescription;
 @property (nullable, nonatomic, copy) NSDate *date;
-@property (nullable, nonatomic, retain) NSSet<Tag *> *tag;
+@property (nullable, nonatomic, retain) NSSet<Tag *> *tags;
 
 @end
 
 @interface Receipt (CoreDataGeneratedAccessors)
 
-- (void)addTagObject:(Tag *)value;
-- (void)removeTagObject:(Tag *)value;
-- (void)addTag:(NSSet<Tag *> *)values;
-- (void)removeTag:(NSSet<Tag *> *)values;
+- (void)addTagsObject:(Tag *)value;
+- (void)removeTagsObject:(Tag *)value;
+- (void)addTags:(NSSet<Tag *> *)values;
+- (void)removeTags:(NSSet<Tag *> *)values;
 
 @end
 

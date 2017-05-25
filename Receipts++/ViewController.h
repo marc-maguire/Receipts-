@@ -11,7 +11,5 @@
 
 @interface ViewController : UIViewController
 
-@property (nonatomic) AppDelegate *delegate;
-
 @end
 

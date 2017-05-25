@@ -9,6 +9,7 @@
 #import "AddReceiptViewController.h"
 #import "Receipt+CoreDataClass.h"
 #import "Tag+CoreDataClass.h"
+#import "DataManager.h"
 
 @interface AddReceiptViewController () <UITableViewDataSource, UITableViewDataSource>
 
@@ -16,8 +17,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *descriptionTextField;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic) NSArray <NSString *> *categories;
-@property (nonatomic) NSMutableArray *selectedCategories;
+@property (nonatomic) NSMutableDictionary <NSString*, Tag *> *tags;
+@property (nonatomic) DataManager *manager;
 
 
 
@@ -27,10 +28,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.categories = @[@"Personal", @"Family", @"Business"];
-    self.selectedCategories = [[NSMutableArray alloc] init];
     
-    // Do any additional setup after loading the view.
+    self.manager = [DataManager sharedManager];
+    self.tags = [[NSMutableDictionary alloc]init];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,42 +39,19 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 -(IBAction)saveReceipt:(UIButton *)sender {
     
-    NSManagedObjectContext *context = self.delegate.persistentContainer.viewContext;
-    Receipt *receipt = [[Receipt alloc]initWithEntity:[Receipt entity] insertIntoManagedObjectContext:context];
+
+    Receipt *receipt = [[Receipt alloc]initWithEntity:[Receipt entity] insertIntoManagedObjectContext:self.manager.persistentContainer.viewContext];
     receipt.amount = (uint16_t)[self.amountTextField.text integerValue];
     receipt.date = self.datePicker.date;
     receipt.receiptDescription = self.descriptionTextField.text;
-    NSSet <Tag *> *categories;
-    for (NSString *string in self.categories) {
-        Tag *tag = [[Tag alloc]initWithEntity:[Tag entity] insertIntoManagedObjectContext:context];
-        tag.tagName = string;
-        [categories setByAddingObject:tag];
-    }
-    receipt.tag = categories;
+    NSArray <Tag *> *tags = self.tags.allValues;
+    receipt.tags = [NSSet setWithArray:tags];
     
-//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-//    dateFormatter.dateFormat = @"MMMM DDDD, YYY";
-//    NSDate *date1 = [dateFormatter stringFromDate:self.datePicker.date];
-    //receipt.date = date;
+
     
-    NSError *error;
-    [context save:&error];
-    if (error) {
-        NSLog(@"save failed in AddReciptViewController");
-        abort();
-    }
+    [self.manager saveContext];
     [self dismissViewControllerAnimated:YES completion:nil];
     
 }
@@ -87,29 +65,35 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    return self.manager.tags.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     
-    cell.textLabel.text = self.categories[indexPath.row];
+    cell.textLabel.text = self.manager.tags[indexPath.row].tagName;
     
     return cell;
 }
 
 #pragma mark - Table View Delegate Methods
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-   
+    Tag *selectedTag = self.manager.tags[indexPath.row];
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
    
     if (cell.accessoryType == UITableViewCellAccessoryNone) {
+        
+        if ([self.tags objectForKey:selectedTag.tagName] != nil) {
+            return;
+        } else {
+            [self.tags setObject:selectedTag forKey:selectedTag.tagName];
+        }
         [self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
-        [self.selectedCategories addObject:self.categories[indexPath.row]];
+//        [self.selectedCategories addObject:self.categories[indexPath.row]];
     } else {
+        
         [self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
-        NSString *object = self.categories[indexPath.row];
-        [self.selectedCategories removeObject:object];
+        [self.tags removeObjectForKey:selectedTag.tagName];
 
     }
 }

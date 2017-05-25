@@ -17,6 +17,6 @@
 @dynamic amount;
 @dynamic receiptDescription;
 @dynamic date;
-@dynamic tag;
+@dynamic tags;
 
 @end

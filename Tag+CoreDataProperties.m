@@ -15,6 +15,6 @@
 }
 
 @dynamic tagName;
-@dynamic receipt;
+@dynamic receipts;
 
 @end
