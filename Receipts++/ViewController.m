@@ -22,6 +22,42 @@
 
 @implementation ViewController
 
+//- (NSDictionary *)sortReceiptsByTag {
+//    
+//    NSDictionary *sortedReceipts = @{@"Person" : @[],
+//                                   @"Family" : @[],
+//                                   @"Business" : @[]};
+//    for (Receipt *receipt in self.receipts) {
+//        if ([receipt.tag containsObject:@"Person"]) {
+//            
+//        }
+//        
+        //fetch the tags
+        //then pull the receipts for the tags.
+        //group by predicate
+//        for (Tag *tag in receipt.tag) {}
+        
+            
+            
+//            switch (tag) {
+//                case @"Person":
+//                    [sortedReceipts[@"Person"] addObject:receipt];
+//                    break;
+//                case @"Family":
+//                    [sortedReceipts[@"Family"] addObject:receipt];
+//                    break;
+//                case @"Business":
+//                    [sortedReceipts[@"Business"] addObject:receipt];
+//                    break;
+//                    
+//                default:
+//                    break;
+//            }
+        
+//    }
+//    return nil;
+//}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
      self.delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -32,9 +68,14 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated {
+    //fetch the tags instead of the receipts
     
     NSManagedObjectContext *managedContext = self.delegate.persistentContainer.viewContext;
+    
+//    NSFetchRequest *fetchRequest = [Tag fetchRequest];
     NSError *error;
+    
+    
     NSMutableArray *update = (NSMutableArray <Receipt *>*)[managedContext executeFetchRequest:[Receipt fetchRequest] error:&error];
     if (error) {
         abort();
@@ -51,23 +92,23 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (NSArray <Receipt *> * )loadReceiptsForSections:(int)indexPath {
-    
-    NSManagedObjectContext *context = self.delegate.persistentContainer.viewContext;
-    NSFetchRequest *request = [Receipt fetchRequest];
-    NSString *sectionTitle = [self.sections objectAtIndex:indexPath];
-    //sort and return receipts based on section
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"tagName = %@",sectionTitle];
-    request.predicate = predicate;
-    
-    NSError *error;
-    NSArray *results = [context executeFetchRequest:request error:&error];
-    if (error) {
-        NSLog(@"error performing search with predicate");
-        abort();
-    }
-    return results;
-}
+//- (NSArray <Receipt *> * )loadReceiptsForSections:(int)indexPath {
+//    
+//    NSManagedObjectContext *context = self.delegate.persistentContainer.viewContext;
+//    NSFetchRequest *request = [Receipt fetchRequest];
+//    NSString *sectionTitle = [self.sections objectAtIndex:indexPath];
+//    //sort and return receipts based on section
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"tagName = %@",sectionTitle];
+//    request.predicate = predicate;
+//    
+//    NSError *error;
+//    NSArray *results = [context executeFetchRequest:request error:&error];
+//    if (error) {
+//        NSLog(@"error performing search with predicate");
+//        abort();
+//    }
+//    return results;
+//}
 
 #pragma mark - TableView Data Source Methods
 
