@@ -115,11 +115,19 @@
                                     <outlet property="delegate" destination="4fk-fJ-ON6" id="9ed-W9-v8h"/>
                                 </connections>
                             </tableView>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="xWE-W0-i8d">
+                                <rect key="frame" x="16" y="283" width="343" height="216"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <date key="date" timeIntervalSinceReferenceDate="517422507.25428998">
+                                    <!--2017-05-25 16:28:27 +0000-->
+                                </date>
+                            </datePicker>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="amountTextField" destination="zfe-H3-drg" id="Eus-IY-DLX"/>
+                        <outlet property="datePicker" destination="xWE-W0-i8d" id="0dY-NU-JGa"/>
                         <outlet property="descriptionTextField" destination="q9R-TP-Dhi" id="1js-Ag-6Sw"/>
                         <outlet property="tableView" destination="JGR-TV-v9P" id="HFw-id-4Yh"/>
                     </connections>

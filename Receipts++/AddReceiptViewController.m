@@ -12,6 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *amountTextField;
 @property (weak, nonatomic) IBOutlet UITextField *descriptionTextField;
+@property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) NSArray <NSString *> *categories;
 
